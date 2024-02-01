@@ -9,7 +9,7 @@ import {
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,7 +17,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <div>
+          <Outlet />
+        </div>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -28,7 +30,7 @@ export default function App() {
 
 export function HydrateFallback() {
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -36,7 +38,7 @@ export function HydrateFallback() {
         <Links />
       </head>
       <body>
-        <p>Loading...</p>
+        <div>Loading...</div>
         <Scripts />
         <LiveReload />
       </body>

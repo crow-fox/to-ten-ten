@@ -14,6 +14,7 @@ export default function handleRequest(
   if (html.startsWith("<html")) {
     html = "<!DOCTYPE html>\n" + html;
   }
+
   return new Response(html, {
     headers: { "Content-Type": "text/html" },
     status: responseStatusCode,
