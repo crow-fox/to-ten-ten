@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import "./tailwind.css";
 
 export default function App() {
   return (
@@ -17,9 +18,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div>
-          <Outlet />
-        </div>
+        <Outlet />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -38,7 +37,10 @@ export function HydrateFallback() {
         <Links />
       </head>
       <body>
-        <div>Loading...</div>
+        <div
+          className=" inset-auto size-6 animate-ping  bg-blue-600 rounded-full"
+          aria-label="ローディング中"
+        />
         <Scripts />
         <LiveReload />
       </body>

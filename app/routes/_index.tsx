@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent, useId, useRef } from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -9,6 +9,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const uid = useId();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -46,15 +47,15 @@ export default function Index() {
 
   return (
     <div>
-      <label>
-        画像のアップロード
+      <p className="grid gap-y-2">
+        <label htmlFor={uid}>画像のアップロード</label>
         <input
+          id={uid}
           type="file"
           accept="image/png, image/jpeg"
           onChange={handleChange}
         />
-      </label>
-
+      </p>
       <canvas ref={canvasRef}></canvas>
     </div>
   );
