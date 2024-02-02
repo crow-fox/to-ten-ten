@@ -1,12 +1,12 @@
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import "./tailwind.css";
+import "./styles/globals.css";
+import { Suspense } from "react";
 
 export default function App() {
   return (
@@ -18,10 +18,11 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <Suspense>
+          <Outlet />
+        </Suspense>
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );
@@ -37,12 +38,10 @@ export function HydrateFallback() {
         <Links />
       </head>
       <body>
-        <div
-          className=" inset-auto size-6 animate-ping  bg-blue-600 rounded-full"
-          aria-label="ローディング中"
-        />
+        <div className="grid grid-cols-1 h-screen place-items-center">
+          Loading...
+        </div>
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );
