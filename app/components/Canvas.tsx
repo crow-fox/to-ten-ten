@@ -1,8 +1,9 @@
-import { ChangeEvent, useId, useRef } from "react";
+import { ChangeEvent, useId, useRef, useState } from "react";
 
 export default function Canvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const uid = useId();
+  const [imageUri, setImageUri] = useState<string>("");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -25,6 +26,8 @@ export default function Canvas() {
 
         /// ドット絵に変換する
         changeDotCanvasImage(ctx);
+
+        setImageUri(canvas.toDataURL());
       };
       img.src = e.target?.result as string;
     };
@@ -32,7 +35,7 @@ export default function Canvas() {
   }
 
   return (
-    <div>
+    <div className="gap-y-8 grid justify-items-center">
       <p className="grid">
         <label htmlFor={uid}>画像の入力</label>
         <input
@@ -42,14 +45,18 @@ export default function Canvas() {
           className=" file:bg-slate-500 file:border-0 file:p-4 file:text-white file:rounded-full file:font-bold file:grid"
         />
       </p>
-      <canvas
-        // width={300}
-        // height={300}
-        ref={canvasRef}
-        className="border border-slate-500 border-dashed"
-      >
+      <canvas ref={canvasRef} className="border border-slate-500 border-dashed">
         キャンバス
       </canvas>
+      <p>
+        <a
+          href={imageUri}
+          download="ドット絵になった画像"
+          className=" underline underline-offset-2 p-4 rounded-full bg-blue-300 grid justify-center"
+        >
+          ダウンロード
+        </a>
+      </p>
     </div>
   );
 }
@@ -59,4 +66,35 @@ function changeDotCanvasImage(ctx: CanvasRenderingContext2D) {
   const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
 
   console.log(imageData.data);
+
+  const blockSize = 20;
+
+  for (let y = 0; y < imageData.height; y += blockSize) {
+    for (let x = 0; x < imageData.width; x += blockSize) {
+      let totalR = 0;
+      let totalG = 0;
+      let totalB = 0;
+      let totalA = 0;
+      let count = 0;
+
+      for (let blockY = y; blockY < y + blockSize; blockY++) {
+        for (let blockX = x; blockX < x + blockSize; blockX++) {
+          const index = (blockY * imageData.width + blockX) * 4;
+          totalR += imageData.data[index];
+          totalG += imageData.data[index + 1];
+          totalB += imageData.data[index + 2];
+          totalA += imageData.data[index + 3];
+          count++;
+        }
+      }
+
+      const averageR = totalR / count;
+      const averageG = totalG / count;
+      const averageB = totalB / count;
+      const averageA = totalA / count;
+
+      ctx.fillStyle = `rgb(${averageR} ${averageG} ${averageB} / ${averageA})`;
+      ctx.fillRect(x, y, blockSize, blockSize);
+    }
+  }
 }
