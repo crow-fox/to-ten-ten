@@ -22,6 +22,18 @@ export default {
       // 長文の一行の最大幅を指定するため
       640: "40rem",
     },
+    fontSize: {
+      "3xs": ["calc(1rem * 8 / 12)", "0.75rem"],
+      "2xs": ["calc(1rem * 8 / 11)", "0.75rem"],
+      xs: ["calc(1rem * 8 / 10)", "1rem"],
+      sm: ["calc(1rem * 8 / 9)", "1.25rem"],
+      md: ["1rem", "1.5rem"],
+      lg: ["calc(1rem * 8 / 7)", "1.5rem"],
+      xl: ["calc(1rem * 8 / 6)", "1.75rem"],
+      "2xl": ["calc(1rem * 8 / 5)", "2rem"],
+      "3xl": ["calc(1rem * 8 / 4)", "2.5rem"],
+      "4xl": ["calc(1rem * 8 / 3)", "3.25rem"],
+    },
   },
   plugins: [],
 };
