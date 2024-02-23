@@ -34,6 +34,26 @@ export default {
       "3xl": ["calc(1rem * 8 / 4)", "2.5rem"],
       "4xl": ["calc(1rem * 8 / 3)", "3.25rem"],
     },
+    colors: {
+      primary: {
+        accent: "#993CD2",
+        background: "#FDFDFD",
+        text: "#373439",
+        border: "#8E8994",
+      },
+      secondary: {
+        accent: "#C33CD2",
+        background: "#F2F2F2",
+        text: "#67616B",
+        border: "#CCC9CF",
+      },
+      tertiary: {
+        background: "#F2EFF6",
+      },
+      invert: {
+        text: "#FDFDFD",
+      },
+    },
   },
   plugins: [],
 };
