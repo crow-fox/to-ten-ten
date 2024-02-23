@@ -19,6 +19,10 @@
     },
 
     // Remix takes care of building everything in `remix build`.
-    "noEmit": true
+    "noEmit": true,
+
+    "types": [
+      "vitest/importMeta"
+    ]
   }
 }
