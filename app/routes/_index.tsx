@@ -1,10 +1,14 @@
-import Canvas from "~/components/Canvas";
+import { MetaFunction } from "@remix-run/react";
+
+export const meta: MetaFunction = () => {
+  return [
+    {
+      title: "To Ten Ten",
+      description: "ドット絵に変換するアプリ",
+    },
+  ];
+};
 
 export default function IndexPage() {
-  return (
-    <div className="grid  gap-y-4 justify-items-center ">
-      <h1 className="font-bold text-2xl text-red-500">Canvas</h1>
-      <Canvas />
-    </div>
-  );
+  return <h1>To Ten Ten</h1>;
 }
