@@ -5,8 +5,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import logo from "./assets/logo.svg";
 import "./styles/globals.css";
-import { Suspense } from "react";
 
 export default function App() {
   return (
@@ -17,10 +17,24 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <Suspense>
-          <Outlet />
-        </Suspense>
+      <body className=" bg-primary-background">
+        <div className=" min-h-svh flex flex-col">
+          <header className=" py-12 px-20 grid place-content-center border-b border-b-secondary-border">
+            <p>
+              <img src={logo} alt="to ten ten" width={62} height={16} />
+            </p>
+          </header>
+          <main>
+            <Outlet />
+          </main>
+          <footer className=" mt-auto border-t border-t-secondary-border py-12 px-20 grid place-content-center">
+            <p>
+              <small className=" text-sm text-secondary-text not-italic">
+                &copy; 2024 crow-fox
+              </small>
+            </p>
+          </footer>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
