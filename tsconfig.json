@@ -22,7 +22,8 @@
     "noEmit": true,
 
     "types": [
-      "vitest/importMeta"
+      "vitest/importMeta",
+      "vitest/jsdom"
     ]
   }
 }

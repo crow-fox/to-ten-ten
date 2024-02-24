@@ -7,6 +7,8 @@ export default defineConfig({
   plugins: [remix({ ssr: false }), tsconfigPaths()],
   test: {
     includeSource: ["app/**/*.{ts,tsx}"],
+    environment: "jsdom",
+    setupFiles: ["vitest.setup.ts"],
   },
   define: {
     "import.meta.vitest": "undefined",
