@@ -1,15 +1,29 @@
-import { RefObject } from "react";
+import { useEffect, useRef } from "react";
+import { canvasDrawImage } from "~/utils/canvas/canvasDrawImage";
 
 type Props = {
-  myRef: RefObject<HTMLCanvasElement>;
   originImage?: HTMLImageElement;
   dotSize: number;
 };
 
-export default function OriginCanvas(props: Props) {
+export default function OriginArea(props: Props) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) {
+      throw new Error("実装エラー:canvasが存在しません");
+    }
+
+    if (!props.originImage) {
+      return;
+    }
+
+    canvasDrawImage(canvas, props.originImage);
+  }, [props.originImage]);
+
   return (
     <canvas
-      ref={props.myRef}
+      ref={ref}
       style={
         props.originImage
           ? {
