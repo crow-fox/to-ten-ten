@@ -1,6 +1,7 @@
 import { RefObject } from "react";
 import { DotSize } from "~/components/DotSizeSelect/utils";
-import { Pixel2D, getPixelsSize } from "~/utils/canvas/pixels";
+import { getPixelsSize } from "~/utils/pixels/getPixelsSize";
+import { Pixel2D } from "~/utils/pixels/type";
 
 type Props = {
   myRef: RefObject<HTMLCanvasElement>;
