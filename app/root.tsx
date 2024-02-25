@@ -10,7 +10,7 @@ export default function App() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
       </head>
-      <body className=" overflow-y-scroll bg-primary-background">
+      <body className="  bg-primary-background text-md text-primary-text has-[dialog[open]]:overflow-y-hidden">
         <div className=" flex min-h-svh flex-col">
           <header className=" grid place-content-center border-b border-b-secondary-border px-20 py-12">
             <h1>
