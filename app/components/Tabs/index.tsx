@@ -27,10 +27,10 @@ export default function Tabs(props: Props) {
   }
 
   return (
-    <RadixTabs.Root defaultValue={props.items[0].label} className="">
+    <RadixTabs.Root defaultValue={props.items[0].label}>
       <RadixTabs.List
         aria-label={props.navLabel}
-        className=" mx-auto flex max-w-576 gap-x-32"
+        className=" mx-auto box-content flex max-w-576 gap-x-32 px-20"
       >
         {props.items.map((item) => (
           <RadixTabs.Trigger
