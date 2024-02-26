@@ -45,7 +45,7 @@ export default function Dialog({
         {...dialogProps}
         onClick={handleOutsideClick}
         ref={dialogRef}
-        className="  fixed  inset-0 size-full max-h-full max-w-full overflow-auto bg-[transparent] backdrop:bg-[rgba(0,0,0,0.2)] open:grid"
+        className="fixed inset-0 size-full max-h-full max-w-full overflow-auto bg-[transparent] p-20 backdrop:bg-[rgba(0,0,0,0.2)] open:grid"
       >
         {/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
 
