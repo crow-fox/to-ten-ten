@@ -1,6 +1,12 @@
-import { Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from "@remix-run/react";
 import logo from "./assets/logo.svg";
-import "./styles/globals.css";
+import "~/styles/globals.css";
 
 export default function App() {
   return (
@@ -9,6 +15,7 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
+        <Links />
       </head>
       <body className="  bg-primary-background text-md text-primary-text has-[dialog[open]]:overflow-y-hidden">
         <div className=" flex min-h-svh flex-col">
@@ -42,6 +49,7 @@ export function HydrateFallback() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
+        <Links />
       </head>
       <body>
         <div className="grid h-screen grid-cols-1 place-items-center">
