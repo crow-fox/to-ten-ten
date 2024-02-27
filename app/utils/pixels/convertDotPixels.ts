@@ -23,10 +23,10 @@ export function convertDotPixels(pixels: Pixel2D, dotSize: number) {
         }
       }
 
-      const averageR = totalR / count;
-      const averageG = totalG / count;
-      const averageB = totalB / count;
-      const averageA = totalA / count;
+      const averageR = Math.round(totalR / count);
+      const averageG = Math.round(totalG / count);
+      const averageB = Math.round(totalB / count);
+      const averageA = Math.round(totalA / count);
 
       row.push({
         r: averageR,
@@ -44,7 +44,7 @@ export function convertDotPixels(pixels: Pixel2D, dotSize: number) {
 if (import.meta.vitest) {
   const { describe, test, expect } = import.meta.vitest;
 
-  describe("changePixelsToDot", () => {
+  describe("convertDotPixels", () => {
     test("ドットのサイズを一ブロックとして考え、そのブロックの平均色を持つ1pxのドットを作成し合成した新しいpixelsを生成", () => {
       const pixels = [
         [
@@ -77,40 +77,13 @@ if (import.meta.vitest) {
       expect(convertDotPixels(pixels, dotSize)).toEqual([
         [
           { r: 25, g: 25, b: 25, a: 25 },
-          { r: 127.5, g: 127.5, b: 127.5, a: 127.5 },
+          { r: 128, g: 128, b: 128, a: 128 },
         ],
         [
           { r: 25, g: 25, b: 25, a: 25 },
-          { r: 127.5, g: 127.5, b: 127.5, a: 127.5 },
+          { r: 128, g: 128, b: 128, a: 128 },
         ],
       ]);
-
-      // expect(convertDotPixels(pixels, dotSize)).toEqual([
-      //   [
-      //     { r: 25, g: 25, b: 25, a: 25 },
-      //     { r: 25, g: 25, b: 25, a: 25 },
-      //     { r: 127.5, g: 127.5, b: 127.5, a: 127.5 },
-      //     { r: 127.5, g: 127.5, b: 127.5, a: 127.5 },
-      //   ],
-      //   [
-      //     { r: 25, g: 25, b: 25, a: 25 },
-      //     { r: 25, g: 25, b: 25, a: 25 },
-      //     { r: 127.5, g: 127.5, b: 127.5, a: 127.5 },
-      //     { r: 127.5, g: 127.5, b: 127.5, a: 127.5 },
-      //   ],
-      //   [
-      //     { r: 25, g: 25, b: 25, a: 25 },
-      //     { r: 25, g: 25, b: 25, a: 25 },
-      //     { r: 127.5, g: 127.5, b: 127.5, a: 127.5 },
-      //     { r: 127.5, g: 127.5, b: 127.5, a: 127.5 },
-      //   ],
-      //   [
-      //     { r: 25, g: 25, b: 25, a: 25 },
-      //     { r: 25, g: 25, b: 25, a: 25 },
-      //     { r: 127.5, g: 127.5, b: 127.5, a: 127.5 },
-      //     { r: 127.5, g: 127.5, b: 127.5, a: 127.5 },
-      //   ],
-      // ]);
     });
     test("サイズはdotSize分小さくなる", () => {
       const pixel = { r: 0, g: 0, b: 0, a: 255 };
@@ -124,6 +97,21 @@ if (import.meta.vitest) {
       const dotPixels = convertDotPixels(pixels, dotSize);
       expect(dotPixels.length).toBe(2);
       expect(dotPixels[0].length).toBe(2);
+    });
+    test("平均の色が小数点以下は四捨五入される", () => {
+      const pixels = [
+        [
+          { r: 1, g: 1, b: 1, a: 1 },
+          { r: 2, g: 2, b: 2, a: 2 },
+        ],
+        [
+          { r: 2, g: 2, b: 2, a: 2 },
+          { r: 2, g: 2, b: 2, a: 2 },
+        ],
+      ];
+      const dotSize = 2;
+      const dotPixels = convertDotPixels(pixels, dotSize);
+      expect(dotPixels).toEqual([[{ r: 2, g: 2, b: 2, a: 2 }]]);
     });
   });
 }
