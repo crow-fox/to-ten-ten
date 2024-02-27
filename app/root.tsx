@@ -6,7 +6,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import logo from "./assets/logo.svg";
-import "./styles/globals.css";
+import "~/styles/globals.css";
 
 export default function App() {
   return (
@@ -17,19 +17,19 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className=" bg-primary-background">
-        <div className=" min-h-svh flex flex-col">
-          <header className=" py-12 px-20 grid place-content-center border-b border-b-secondary-border">
-            <p>
-              <img src={logo} alt="to ten ten" width={62} height={16} />
-            </p>
+      <body className="  bg-primary-background text-md text-primary-text has-[dialog[open]]:overflow-y-hidden">
+        <div className=" flex min-h-svh flex-col">
+          <header className=" grid place-content-center border-b border-b-secondary-border px-20 py-12">
+            <h1>
+              <img src={logo} alt="to ten ten" width="62" height="16" />
+            </h1>
           </header>
           <main>
             <Outlet />
           </main>
-          <footer className=" mt-auto border-t border-t-secondary-border py-12 px-20 grid place-content-center">
+          <footer className=" mt-auto grid place-content-center border-t border-t-secondary-border px-20 py-12">
             <p>
-              <small className=" text-sm text-secondary-text not-italic">
+              <small className=" text-sm not-italic text-secondary-text">
                 &copy; 2024 crow-fox
               </small>
             </p>
@@ -52,7 +52,7 @@ export function HydrateFallback() {
         <Links />
       </head>
       <body>
-        <div className="grid grid-cols-1 h-screen place-items-center">
+        <div className="grid h-screen grid-cols-1 place-items-center">
           Loading...
         </div>
         <Scripts />

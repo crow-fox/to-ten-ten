@@ -52,6 +52,7 @@ export default {
       },
       invert: {
         text: "#FDFDFD",
+        background: "#373439",
       },
     },
   },
