@@ -2,7 +2,6 @@ import CopyButton from "~/components/CopyButton";
 import { DotSize } from "~/components/DotSizeSelect/utils";
 import { convertPixelsToCSSBoxShadow } from "~/utils/pixels/convertPixelsToCSSBoxShadow";
 import { convertPixelsToSVG } from "~/utils/pixels/convertPixelsToSVG";
-import { downscalePixelsByDotSize } from "~/utils/pixels/downscalePixelsByDotSize";
 import { Pixel2D } from "~/utils/pixels/type";
 
 type Props = {
@@ -11,9 +10,8 @@ type Props = {
 };
 
 export default function CopyArea(props: Props) {
-  const pixels = downscalePixelsByDotSize(props.pixels, props.dotSize);
-  const svg = convertPixelsToSVG(pixels);
-  const css = convertPixelsToCSSBoxShadow(pixels, props.dotSize);
+  const svg = convertPixelsToSVG(props.pixels);
+  const css = convertPixelsToCSSBoxShadow(props.pixels, props.dotSize);
 
   return (
     <ul className=" grid gap-y-20 ">
