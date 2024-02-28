@@ -3,16 +3,16 @@ import CopyArea from "~/components/CopyArea";
 import Dialog from "~/components/Dialog";
 import { DotColor } from "~/components/DotColorSelect/utils";
 import { DotSize } from "~/components/DotSizeSelect/utils";
-import { canvasDrawImage } from "~/utils/canvas/canvasDrawImage";
-import { canvasDrawImageByPixels } from "~/utils/canvas/canvasDrawImageByPixels";
-import { getImagesByCanvas } from "~/utils/canvas/getImagesByCanvas";
-import { changePixelsToGrayScale } from "~/utils/pixels/changePixelsToGrayScale";
-import { convertDotPixels } from "~/utils/pixels/convertDotPixels";
-import { convertImageDataToPixels } from "~/utils/pixels/convertImageDataToPixels";
-import { getPixelsSize } from "~/utils/pixels/getPixelsSize";
-import { resizePixelsByDotSize } from "~/utils/pixels/resizePixelsByDotSize";
-import { Pixel2D } from "~/utils/pixels/type";
-import { upscalePixelsByDotSize } from "~/utils/pixels/upscalePixelsByDotSize";
+import { canvasDrawImage } from "~/libs/canvas/canvasDrawImage";
+import { canvasDrawImageByPixels } from "~/libs/canvas/canvasDrawImageByPixels";
+import { getImagesByCanvas } from "~/libs/canvas/getImagesByCanvas";
+import { changePixelsToGrayScale } from "~/libs/pixels/changePixelsToGrayScale";
+import { convertDotPixels } from "~/libs/pixels/convertDotPixels";
+import { convertImageDataToPixels } from "~/libs/pixels/convertImageDataToPixels";
+import { getPixelsSize } from "~/libs/pixels/getPixelsSize";
+import { resizePixelsByDotSize } from "~/libs/pixels/resizePixelsByDotSize";
+import { Pixel2D } from "~/libs/pixels/type";
+import { upscalePixelsByDotSize } from "~/libs/pixels/upscalePixelsByDotSize";
 
 type Props = {
   originImage?: HTMLImageElement;

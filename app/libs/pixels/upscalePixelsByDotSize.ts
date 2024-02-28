@@ -1,4 +1,4 @@
-import { Pixel2D } from "~/utils/pixels/type";
+import { Pixel2D } from "~/libs/pixels/type";
 
 export function upscalePixelsByDotSize(
   pixels: Pixel2D,

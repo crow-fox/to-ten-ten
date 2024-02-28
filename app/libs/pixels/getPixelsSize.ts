@@ -1,4 +1,4 @@
-import { Pixel2D } from "~/utils/pixels/type";
+import { Pixel2D } from "~/libs/pixels/type";
 
 export function getPixelsSize(pixels: Pixel2D) {
   return { width: pixels[0].length, height: pixels.length };

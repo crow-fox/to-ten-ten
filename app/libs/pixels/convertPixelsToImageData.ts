@@ -1,5 +1,5 @@
-import { getPixelsSize } from "~/utils/pixels/getPixelsSize";
-import { Pixel2D } from "~/utils/pixels/type";
+import { getPixelsSize } from "~/libs/pixels/getPixelsSize";
+import { Pixel2D } from "~/libs/pixels/type";
 
 export function convertPixelsToImageData(pixels: Pixel2D): ImageData {
   const { width, height } = getPixelsSize(pixels);
