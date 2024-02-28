@@ -1,6 +1,6 @@
-import { convertPixelsToImageData } from "~/utils/pixels/convertPixelsToImageData";
-import { getPixelsSize } from "~/utils/pixels/getPixelsSize";
-import { Pixel2D } from "~/utils/pixels/type";
+import { convertPixelsToImageData } from "~/libs/pixels/convertPixelsToImageData";
+import { getPixelsSize } from "~/libs/pixels/getPixelsSize";
+import { Pixel2D } from "~/libs/pixels/type";
 
 export function canvasDrawImageByPixels(
   canvas: HTMLCanvasElement,

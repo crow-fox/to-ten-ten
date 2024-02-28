@@ -1,4 +1,4 @@
-import { Pixel2D } from "~/utils/pixels/type";
+import { Pixel2D } from "~/libs/pixels/type";
 
 export function convertImageDataToPixels(imageData: ImageData): Pixel2D {
   const pixels: Pixel2D = [];

@@ -1,4 +1,4 @@
-import { Pixel2D } from "~/utils/pixels/type";
+import { Pixel2D } from "~/libs/pixels/type";
 
 export function convertDotPixels(pixels: Pixel2D, dotSize: number) {
   const dotPixels: Pixel2D = [];

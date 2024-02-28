@@ -1,4 +1,4 @@
-import { Pixel2D } from "~/utils/pixels/type";
+import { Pixel2D } from "~/libs/pixels/type";
 
 export function changePixelsToGrayScale(pixels: Pixel2D) {
   return pixels.map((row) => {

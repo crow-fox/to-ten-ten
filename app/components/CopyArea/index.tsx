@@ -1,8 +1,8 @@
 import CopyButton from "~/components/CopyButton";
 import { DotSize } from "~/components/DotSizeSelect/utils";
-import { convertPixelsToCSSBoxShadow } from "~/utils/pixels/convertPixelsToCSSBoxShadow";
-import { convertPixelsToSVG } from "~/utils/pixels/convertPixelsToSVG";
-import { Pixel2D } from "~/utils/pixels/type";
+import { convertPixelsToCSSBoxShadow } from "~/libs/pixels/convertPixelsToCSSBoxShadow";
+import { convertPixelsToSVG } from "~/libs/pixels/convertPixelsToSVG";
+import { Pixel2D } from "~/libs/pixels/type";
 
 type Props = {
   pixels: Pixel2D;

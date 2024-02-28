@@ -1,4 +1,4 @@
-import { calculateCanvasSize } from "~/utils/canvas/calculateCanvasSize";
+import { calculateCanvasSize } from "~/libs/canvas/calculateCanvasSize";
 
 const maxCanvasSize = 1024;
 

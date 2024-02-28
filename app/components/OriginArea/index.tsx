@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { canvasDrawImage } from "~/utils/canvas/canvasDrawImage";
+import { canvasDrawImage } from "~/libs/canvas/canvasDrawImage";
 
 type Props = {
   originImage?: HTMLImageElement;

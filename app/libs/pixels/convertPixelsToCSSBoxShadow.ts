@@ -1,6 +1,6 @@
 import { DotSize } from "~/components/DotSizeSelect/utils";
-import { getPixelsSize } from "~/utils/pixels/getPixelsSize";
-import { Pixel2D } from "~/utils/pixels/type";
+import { getPixelsSize } from "~/libs/pixels/getPixelsSize";
+import { Pixel2D } from "~/libs/pixels/type";
 
 export function convertPixelsToCSSBoxShadow(pixels: Pixel2D, dotSize: DotSize) {
   const size = getPixelsSize(pixels);
