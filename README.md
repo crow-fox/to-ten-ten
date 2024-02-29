@@ -1,37 +1,66 @@
-# templates/spa
+# To Ten Ten
 
-This template leverages [Remix SPA Mode](https://remix.run/docs/en/main/future/spa-mode) to build your app as a Single-Page Application using [Client Data](https://remix.run/docs/en/main/guides/client-data) for all of you data loads and mutations.
+画像をドット絵に変換するアプリケーションです。
 
-⚠️ This is built on top of the Remix Vite template. Remix support for Vite is currently unstable and not recommended for production.
+[To Ten Ten](https://crow-fox.github.io/to-ten-ten/)
 
-📖 See the [Remix Vite docs][remix-vite-docs] for details on supported features.
+## もとの画像
 
-## Setup
+![イラスト:紫色と黒色の鳥1匹](./readme/sample.webp)
 
-```shellscript
-npx create-remix@latest --template remix-run/remix/templates/spa
-```
+## 変換後の画像
 
-## Development
+![イラスト:紫色と黒色の鳥1匹:解像度が荒くなっている](./readme/sample-dot.webp)
 
-You can develop your SPA app just like you would a normal Remix app, via:
+## 使い方
 
-```shellscript
-npm run dev
-```
+### 変換したい画像をアップロード
 
-## Production
+ファイルを選択するボタンをクリックして、変換したい画像を選択します。
 
-When you are ready yo build a production version of your app, `npm run build` will generate your assets and an `index.html` for the SPA.
+### 変換する
 
-```shellscript
-npm run build
-```
+ドットのサイズや、ドットの色を選択することで自動的に変換されます。
 
-You can serve this from any server of your choosing, for a simple example, you could use [http-server](https://www.npmjs.com/package/http-server):
+### もとの画像と比較する
 
-```shellscript
-npx http-server build/client/
-```
+タブを切り替えることで、もとの画像と変換後の画像を比較することができます。
 
-[remix-vite-docs]: https://remix.run/docs/en/main/future/vite
+### 画像を保存する
+
+ダウンロードボタンから、変換した画像を保存することができます。
+
+ダウンロードできる画像の形式は下記のリストです。
+
+- png
+- jpeg
+- webp
+
+### 画像のコードをコピーする
+
+コードボタンから、変換した画像を表示できるコードをクリップボードにコピーすることができます。
+
+コピーできるコードの形式は下記のリストです。
+
+- SVG
+- CSS box-shadow
+
+## 開発環境
+
+### 依存関係のインストール
+
+`bun run install`
+
+### 開発サーバーの起動
+
+`bun run dev`
+
+### ビルド
+
+`bun run build`
+
+### 公開
+
+GitHub Pages に公開しています。
+
+Github Actionsを使用して、masterブランチにpushされた際に自動でビルド・デプロイされます。
