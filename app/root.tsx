@@ -1,3 +1,4 @@
+import { LinksFunction } from "@remix-run/node";
 import {
   Links,
   Meta,
@@ -5,8 +6,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import logo from "./assets/logo.svg";
 import "~/styles/globals.css";
+import logo from "./assets/logo.svg";
+
+export const links: LinksFunction = () => {
+  return [{ rel: "icon", href: "/favicon.ico" }];
+};
 
 export default function App() {
   return (
