@@ -8,9 +8,10 @@ import {
 } from "@remix-run/react";
 import "~/styles/globals.css";
 import logo from "./assets/logo.svg";
+import favicon from "./assets/favicon.ico";
 
 export const links: LinksFunction = () => {
-  return [{ rel: "icon", href: "/favicon.ico" }];
+  return [{ rel: "icon", href: favicon }];
 };
 
 export default function App() {
