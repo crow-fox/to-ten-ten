@@ -20,17 +20,14 @@ export function convertDotPixels(pixels: Pixel2D, dotSize: number) {
         }
       }
 
-      const averageR = Math.round(total.r / count);
-      const averageG = Math.round(total.g / count);
-      const averageB = Math.round(total.b / count);
-      const averageA = Math.round(total.a / count);
+      const average: Pixel = {
+        r: Math.round(total.r / count),
+        g: Math.round(total.g / count),
+        b: Math.round(total.b / count),
+        a: Math.round(total.a / count),
+      };
 
-      row.push({
-        r: averageR,
-        g: averageG,
-        b: averageB,
-        a: averageA,
-      });
+      row.push(average);
     }
     dotPixels.push(row);
   }
