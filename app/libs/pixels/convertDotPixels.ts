@@ -6,7 +6,7 @@ export function convertDotPixels(pixels: Pixel2D, dotSize: number) {
   for (let y = 0; y < pixels.length; y += dotSize) {
     const row = [];
     for (let x = 0; x < pixels[y].length; x += dotSize) {
-      let total: Pixel = { r: 0, g: 0, b: 0, a: 0 };
+      const total: Pixel = { r: 0, g: 0, b: 0, a: 0 };
       let count = 0;
 
       for (let blockY = y; blockY < y + dotSize; blockY++) {
