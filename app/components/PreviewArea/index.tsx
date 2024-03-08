@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import CopyArea from "~/components/CopyArea";
 import Dialog from "~/components/Dialog";
 import { DotColor } from "~/components/DotColorSelect/utils";
@@ -11,7 +11,6 @@ import { convertDotPixels } from "~/libs/pixels/convertDotPixels";
 import { convertImageDataToPixels } from "~/libs/pixels/convertImageDataToPixels";
 import { getPixelsSize } from "~/libs/pixels/getPixelsSize";
 import { resizePixelsByDotSize } from "~/libs/pixels/resizePixelsByDotSize";
-import { Pixel2D } from "~/libs/pixels/type";
 import { upscalePixelsByDotSize } from "~/libs/pixels/upscalePixelsByDotSize";
 
 type Props = {
@@ -22,7 +21,9 @@ type Props = {
 
 export default function PreviewArea(props: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
-  const [pixels, setPixels] = useState<Pixel2D | undefined>(undefined);
+  const [originImageData, setOriginImageData] = useState<ImageData | undefined>(
+    undefined,
+  );
   const [images, setImages] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -33,78 +34,59 @@ export default function PreviewArea(props: Props) {
     }
 
     if (!props.originImage) {
-      setPixels(undefined);
+      return;
+    }
+
+    // imageDataを取得するため、最初にもとの画像をcanvasに描画
+    const { imageData } = canvasDrawImage(canvas, props.originImage);
+
+    setOriginImageData(imageData);
+  }, [props.originImage]);
+
+  const pixels = useMemo(
+    () =>
+      originImageData
+        ? convertPixelsByParams({
+            imageData: originImageData,
+            dot: {
+              size: props.dotSize,
+              color: props.dotColor,
+            },
+          })
+        : undefined,
+    [originImageData, props.dotSize, props.dotColor],
+  );
+
+  useEffect(() => {
+    const canvas = ref.current;
+
+    if (!canvas) {
+      throw new Error("実装エラー:canvasが存在しません");
+    }
+
+    if (!pixels?.forCanvas) {
       setImages({});
       return;
     }
 
-    // Todo: uploadEventHandler内で実行する
-    // 最初の画像をstateに保持することで、uploadされたときのみ初期のpixelsを計算する
-
-    // imageDataを取得するため、最初にもとの画像をcanvasに描画
-    const { imageData: originImageData } = canvasDrawImage(
-      canvas,
-      props.originImage,
-    );
-
-    // 画像データを2次元配列に変換
-    console.time("convertImageDataToPixels");
-    const originPixels = convertImageDataToPixels(originImageData);
-    console.timeEnd("convertImageDataToPixels");
-
-    // ２次元配列ををドットで割り切れるように余白を加えて調整
-    console.time("resizePixelsByDotSize");
-    const dotReadyPixels = resizePixelsByDotSize(originPixels, props.dotSize);
-    console.timeEnd("resizePixelsByDotSize");
-
-    // ドットの大きさの分のpixelsの色の平均色をもつを1pxの集合、小さくなったpixels
-    console.time("convertDotPixels");
-    const dotPixels = convertDotPixels(dotReadyPixels, props.dotSize);
-    console.timeEnd("convertDotPixels");
-
-    console.time("changePixelsToGrayScale");
-    const coloredPixels = (() => {
-      switch (props.dotColor) {
-        case "full":
-          return dotPixels;
-        case "monokuro":
-          return changePixelsToGrayScale(dotPixels);
-      }
-    })();
-    console.timeEnd("changePixelsToGrayScale");
-
-    // 小さくなった状態でstateにセットすることで、のちの加工がやりやすくなる
-    const resultPixels = coloredPixels;
-    setPixels(resultPixels);
-
-    // もとの大きさに戻すことでドット絵の状態になる
-    console.time("upscalePixelsByDotSize");
-    const forCanvasPixels = upscalePixelsByDotSize(
-      coloredPixels,
-      props.dotSize,
-    );
-    console.timeEnd("upscalePixelsByDotSize");
-
     // 結果をcanvasに描画
-    canvasDrawImageByPixels(canvas, forCanvasPixels);
-
+    canvasDrawImageByPixels(canvas, pixels.forCanvas);
     const images = getImagesByCanvas(canvas);
-
     setImages(images);
-  }, [props.dotSize, props.dotColor, props.originImage]);
+  }, [pixels?.forCanvas]);
 
   return (
     <div className=" grid justify-items-center gap-y-32">
       <canvas
         ref={ref}
         style={
-          pixels
+          pixels?.forCanvas
             ? {
                 width: "auto",
                 maxWidth: "100%",
                 height: "auto",
                 maxHeight: "512px",
-                aspectRatio: `${getPixelsSize(pixels).width * props.dotSize}/${getPixelsSize(pixels).height * props.dotSize}`,
+                aspectRatio: `${getPixelsSize(pixels.forCanvas).width}/${getPixelsSize(pixels.forCanvas).height}`,
                 background: "none",
               }
             : {
@@ -194,7 +176,7 @@ export default function PreviewArea(props: Props) {
                   <h2 className="text-xl font-bold text-secondary-text">
                     コード
                   </h2>
-                  <CopyArea pixels={pixels} dotSize={props.dotSize} />
+                  <CopyArea pixels={pixels.base} dotSize={props.dotSize} />
                   <button
                     onClick={close}
                     className=" inline-grid justify-center rounded-xl bg-secondary-background px-12  py-8  text-secondary-text"
@@ -209,4 +191,39 @@ export default function PreviewArea(props: Props) {
       )}
     </div>
   );
+}
+
+function convertPixelsByParams(params: {
+  imageData: ImageData;
+  dot: {
+    size: DotSize;
+    color: DotColor;
+  };
+}) {
+  // 画像データを2次元配列に変換
+  const originPixels = convertImageDataToPixels(params.imageData);
+
+  // ２次元配列ををドットで割り切れるように余白を加えて調整
+  const dotReadyPixels = resizePixelsByDotSize(originPixels, params.dot.size);
+
+  // ドットの大きさ分のpixelsの色を平均して1px分に置き換えることで小さくなったpixels
+  const dotPixels = convertDotPixels(dotReadyPixels, params.dot.size);
+
+  const coloredPixels = (() => {
+    switch (params.dot.color) {
+      case "full":
+        return dotPixels;
+      case "monokuro":
+        // 必要な場合はモノクロに変換
+        return changePixelsToGrayScale(dotPixels);
+    }
+  })();
+
+  // 最小単位のpixels
+  const pixels = coloredPixels;
+
+  // canvasに描画するためのサイズをもとに戻したpixels
+  const pixelsForCanvas = upscalePixelsByDotSize(pixels, params.dot.size);
+
+  return { base: pixels, forCanvas: pixelsForCanvas } as const;
 }
