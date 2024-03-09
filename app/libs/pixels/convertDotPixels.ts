@@ -19,6 +19,15 @@ function calculateTotal(
   return total;
 }
 
+function calculateAverage(total: Pixel, count: number): Pixel {
+  return {
+    r: Math.round(total.r / count),
+    g: Math.round(total.g / count),
+    b: Math.round(total.b / count),
+    a: Math.round(total.a / count),
+  };
+}
+
 export function convertDotPixels(pixels: Pixel2D, dotSize: number) {
   const dotPixels: Pixel2D = [];
   const count = dotSize ** 2;
@@ -26,13 +35,7 @@ export function convertDotPixels(pixels: Pixel2D, dotSize: number) {
     const row = [];
     for (let x = 0; x < pixels[y].length; x += dotSize) {
       const total = calculateTotal(pixels, x, y, dotSize);
-      const average: Pixel = {
-        r: Math.round(total.r / count),
-        g: Math.round(total.g / count),
-        b: Math.round(total.b / count),
-        a: Math.round(total.a / count),
-      };
-
+      const average = calculateAverage(total, count);
       row.push(average);
     }
     dotPixels.push(row);
