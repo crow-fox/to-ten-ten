@@ -1,32 +1,41 @@
 import { Pixel, Pixel2D } from "~/libs/pixels/type";
 
+function calculateTotal(
+  pixels: Pixel2D,
+  x: number,
+  y: number,
+  dotSize: number,
+): Pixel {
+  const total: Pixel = { r: 0, g: 0, b: 0, a: 0 };
+  for (let blockY = y; blockY < y + dotSize; blockY++) {
+    for (let blockX = x; blockX < x + dotSize; blockX++) {
+      const pixel = pixels[blockY][blockX];
+      total.r += pixel.r;
+      total.g += pixel.g;
+      total.b += pixel.b;
+      total.a += pixel.a;
+    }
+  }
+  return total;
+}
+
+function calculateAverage(total: Pixel, count: number): Pixel {
+  return {
+    r: Math.round(total.r / count),
+    g: Math.round(total.g / count),
+    b: Math.round(total.b / count),
+    a: Math.round(total.a / count),
+  };
+}
+
 export function convertDotPixels(pixels: Pixel2D, dotSize: number) {
   const dotPixels: Pixel2D = [];
-
+  const count = dotSize ** 2;
   for (let y = 0; y < pixels.length; y += dotSize) {
     const row = [];
     for (let x = 0; x < pixels[y].length; x += dotSize) {
-      const total: Pixel = { r: 0, g: 0, b: 0, a: 0 };
-      let count = 0;
-
-      for (let blockY = y; blockY < y + dotSize; blockY++) {
-        for (let blockX = x; blockX < x + dotSize; blockX++) {
-          const pixel = pixels[blockY][blockX];
-          total.r += pixel.r;
-          total.g += pixel.g;
-          total.b += pixel.b;
-          total.a += pixel.a;
-          count++;
-        }
-      }
-
-      const average: Pixel = {
-        r: Math.round(total.r / count),
-        g: Math.round(total.g / count),
-        b: Math.round(total.b / count),
-        a: Math.round(total.a / count),
-      };
-
+      const total = calculateTotal(pixels, x, y, dotSize);
+      const average = calculateAverage(total, count);
       row.push(average);
     }
     dotPixels.push(row);
