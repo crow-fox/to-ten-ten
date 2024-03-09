@@ -21,6 +21,7 @@ function calculateTotal(
 
 export function convertDotPixels(pixels: Pixel2D, dotSize: number) {
   const dotPixels: Pixel2D = [];
+  const count = dotSize ** 2;
   for (let y = 0; y < pixels.length; y += dotSize) {
     const row = [];
     for (let x = 0; x < pixels[y].length; x += dotSize) {
